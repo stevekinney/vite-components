@@ -1,38 +1,25 @@
-import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import dts from 'vite-plugin-dts';
+import federation from '@originjs/vite-plugin-federation';
 
 import { libInjectCss } from 'vite-plugin-lib-inject-css';
-
-const __dirname = new URL('.', import.meta.url).pathname;
 
 export default defineConfig({
   plugins: [
     react(),
-    libInjectCss(),
-    dts({
-      include: ['src/components'],
+    federation({
+      name: 'very-fancy-components',
+      filename: 'remoteEntry.js',
+      exposes: {
+        './button': './src/components/button.tsx',
+        './input': './src/components/input.tsx',
+      },
+      shared: ['react', 'react-dom'],
     }),
+    dts(),
   ],
   build: {
-    copyPublicDir: false,
-    cssCodeSplit: true,
-    lib: {
-      entry: resolve(__dirname, 'src/components/index.ts'),
-      name: 'VeryFancyComponents',
-      fileName: 'very-fancy-components',
-      formats: ['es', 'umd'],
-    },
-    rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime'],
-      output: {
-        globals: {
-          react: 'React',
-          'react-dom': 'ReactDOM',
-        },
-        // preserveModules: true,
-      },
-    },
+    target: 'esnext',
   },
 });
