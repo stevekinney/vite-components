@@ -51,16 +51,15 @@ const Application = () => {
       </form>
       <ul>
         {todos.map((todo) => (
-          <li
-            key={todo.id}
-            style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}
-            onClick={() => handleTodoClick(todo.id)}
-          >
-            {todo.text}
-            <Button
-              onClick={() => handleTodoDelete(todo.id)}
-              style={{ marginLeft: '1rem' }}
+          <li key={todo.id} onClick={() => handleTodoClick(todo.id)}>
+            <span
+              style={{
+                textDecoration: todo.completed ? 'line-through' : 'none',
+              }}
             >
+              {todo.text}
+            </span>
+            <Button onClick={() => handleTodoDelete(todo.id)} dangerous>
               Delete
             </Button>
           </li>
