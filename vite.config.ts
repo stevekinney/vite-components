@@ -31,7 +31,7 @@ export default defineConfig({
           react: 'React',
           'react-dom': 'ReactDOM',
         },
-        preserveModules: false,
+        // preserveModules: true,
       },
     },
   },
