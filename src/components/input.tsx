@@ -3,7 +3,7 @@ import { ComponentProps } from 'react';
 
 import styles from './input.module.css';
 
-const Input = ({ className, ...props }: ComponentProps<'input'>) => {
+export const Input = ({ className, ...props }: ComponentProps<'input'>) => {
   return <input className={clsx(styles.input, className)} {...props} />;
 };
 

@@ -1,13 +1,5 @@
-/* Style for the label */
-label {
-  display: block;
-  font-size: 1rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
 /* Style for the input field */
-input {
+.input {
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 1rem;

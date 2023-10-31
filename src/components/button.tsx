@@ -3,11 +3,15 @@ import { ComponentProps } from 'react';
 
 import styles from './button.module.css';
 
-const Button = ({
+type ButtonProps = ComponentProps<'button'> & {
+  dangerous?: boolean;
+};
+
+export const Button = ({
   className,
   dangerous = false,
   ...props
-}: ComponentProps<'button'> & { dangerous?: boolean }) => {
+}: ButtonProps) => {
   return (
     <button
       className={clsx(styles.button, dangerous && styles.dangerous, className)}
