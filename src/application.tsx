@@ -2,12 +2,6 @@ import React, { useState } from 'react';
 import Button from './components/button';
 import Input from './components/input';
 
-interface Todo {
-  id: number;
-  text: string;
-  completed: boolean;
-}
-
 const Application = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodo, setNewTodo] = useState('');
