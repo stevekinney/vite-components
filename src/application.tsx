@@ -53,7 +53,13 @@ const Application = () => {
             >
               {todo.text}
             </span>
-            <Button onClick={() => handleTodoDelete(todo.id)} dangerous>
+            <Button
+              onClick={(event) => {
+                event.stopPropagation();
+                handleTodoDelete(todo.id);
+              }}
+              dangerous
+            >
               Delete
             </Button>
           </li>
