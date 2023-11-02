@@ -5,8 +5,14 @@ import dts from 'vite-plugin-dts';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), dts({})],
+  plugins: [
+    react(),
+    dts({
+      include: ['src/components'],
+    }),
+  ],
   build: {
+    copyPublicDir: false,
     lib: {
       entry: resolve(__dirname, 'src/components/index.ts'),
       name: 'FrontendMastersTotallyAwesomeDesignSystem',
