@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import Button from './components/button';
 import Input from './components/input';
+import useTodos from './use-todos';
 
 const Application = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const { todos, createTodo, updateTodo, deleteTodo } = useTodos();
   const [newTodo, setNewTodo] = useState('');
 
   const handleNewTodoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -13,27 +14,8 @@ const Application = () => {
   const handleNewTodoSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!newTodo.trim()) return;
-    setTodos([
-      ...todos,
-      {
-        id: todos.length ? todos[todos.length - 1].id + 1 : 1,
-        text: newTodo,
-        completed: false,
-      },
-    ]);
+    createTodo(newTodo);
     setNewTodo('');
-  };
-
-  const handleTodoClick = (id: number) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo,
-      ),
-    );
-  };
-
-  const handleTodoDelete = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
   };
 
   return (
@@ -45,7 +27,10 @@ const Application = () => {
       </form>
       <ul>
         {todos.map((todo) => (
-          <li key={todo.id} onClick={() => handleTodoClick(todo.id)}>
+          <li
+            key={todo.id}
+            onClick={() => updateTodo(todo.id, { completed: !todo.completed })}
+          >
             <span
               style={{
                 textDecoration: todo.completed ? 'line-through' : 'none',
@@ -53,7 +38,13 @@ const Application = () => {
             >
               {todo.text}
             </span>
-            <Button onClick={() => handleTodoDelete(todo.id)} dangerous>
+            <Button
+              onClick={(event) => {
+                event.stopPropagation();
+                deleteTodo(todo.id);
+              }}
+              dangerous
+            >
               Delete
             </Button>
           </li>
