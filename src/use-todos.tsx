@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const server = 'http://localhost:3000';
+const server = '';
 
 const useTodos = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
