@@ -14,6 +14,7 @@ let todos = [
 
 // Routes
 app.get('/todos', (req, res) => {
+  console.log('GET /todos');
   res.json(todos);
 });
 
